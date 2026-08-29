@@ -21,7 +21,7 @@ I've spent years researching how we learn. Not in a lab, more like a slow, perso
 
 Not "smarter model" better. That's Anthropic's and OpenAI's problem. I mean better in a more fundamental way: **could we make agents that actually learn from experience?** That accumulate useful knowledge the way we do, keeping what matters, connecting related ideas, letting go of what's no longer relevant, and developing new skills over time.
 
-I've been exploring this by building an open-source system called [Agentic Buddy](https://github.com/juanjeojeda/agentic-buddy), a general-purpose personal assistant with persistent, file-based memory. It lives in its own repo (directory) and helps me with all sorts of things: task management, research, writing, tracking personal projects. It's my testing ground for understanding what works and what doesn't when you try to make an agent learn, and for developing principles that can then be applied to other kinds of agents.
+I've been exploring this by building an open-source system called [Agentic Buddy](https://github.com/juanje/agentic-buddy), a general-purpose personal assistant with persistent, file-based memory. It lives in its own repo (directory) and helps me with all sorts of things: task management, research, writing, tracking personal projects. It's my testing ground for understanding what works and what doesn't when you try to make an agent learn, and for developing principles that can then be applied to other kinds of agents.
 
 I want to share what I've found, because I think the current generation of AI agents, remarkably capable but amnesic and unable to learn anything new between sessions, can be pushed much further than most people realize.
 
@@ -214,7 +214,7 @@ The most common approaches to fixing this are either "throw everything into a gi
 
 But the bigger point is this: as AI agents become a routine part of how we work, the question of _what they remember, how they learn, and how they forget_ is going to become a first-class engineering problem. Not just for companies building AI products, but for every team that uses an AI assistant. The agents that know your context, your team's patterns, your codebase's history, your infrastructure's failure modes, will be dramatically more useful than the ones that start fresh every session.
 
-If you want to experiment with these ideas, [Agentic Buddy](https://github.com/juanjeojeda/agentic-buddy) is open source and takes about five minutes to set up. It's a personal assistant, not a coding-project plugin, but the patterns you learn from using it can inform how you'd build memory into other kinds of agents.
+If you want to experiment with these ideas, [Agentic Buddy](https://github.com/juanje/agentic-buddy) is open source and takes about five minutes to set up. It's a personal assistant, not a coding-project plugin, but the patterns you learn from using it can inform how you'd build memory into other kinds of agents.
 
 My own takeaway from all of this is that the intelligence of current AI doesn't live only in the models. An agent, like any complex agent in a complex environment, can develop memory and skills from surprisingly simple rules and a basic way to interact with its surroundings. In this case, the filesystem.
 
