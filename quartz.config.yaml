@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: "Juanje Ojeda — AI Notes"
+  pageTitle: "AI Notes"
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -228,12 +228,9 @@ plugins:
     enabled: true
     options:
       includeAll: false
-      includedProperties:
-        - description
-        - tags
-        - aliases
+      includedProperties: []
       excludedProperties: []
-      hidePropertiesView: false
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5
