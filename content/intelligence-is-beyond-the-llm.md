@@ -10,6 +10,7 @@ tags:
   - emergence
 aliases:
   - intelligence-beyond-llm
+socialImage: og-images/intelligence-beyond-llm.jpeg
 ---
 
 *If what makes a system intelligent is its capacity to adapt, then an LLM on its own is not particularly intelligent. What gives it flexibility is everything that happens around it.*
