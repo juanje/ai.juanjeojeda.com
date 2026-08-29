@@ -204,6 +204,7 @@ plugins:
       links:
         LinkedIn: https://www.linkedin.com/in/juanjeojeda/
         GitHub: https://github.com/juanje
+        "Versión en español": https://ia.juanjeojeda.com
     layout:
       position: footer
       priority: 50
