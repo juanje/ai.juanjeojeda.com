@@ -1,17 +1,18 @@
-# Quartz v5
+# ai.juanjeojeda.com
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Notes and articles on AI agents, memory systems, learning, and complex systems.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+Built with [Quartz](https://quartz.jzhao.xyz/).
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## Local development
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+```bash
+npm i
+npx quartz build --serve
+```
 
-## Sponsors
+Site runs at http://localhost:8080.
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+## Deploy
+
+Push to `main` triggers GitHub Actions → GitHub Pages.
