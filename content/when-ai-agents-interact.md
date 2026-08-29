@@ -9,7 +9,7 @@ tags:
   - complex-systems
   - prompt-design
 aliases:
-  - when-ai-agents-interact
+  - ai-agents-interact
 ---
 
 *Four studies show that multi-agent AI systems produce the same patterns as teams, markets, and ant colonies. Here's why that matters.*
