@@ -14,10 +14,11 @@ I'm a software engineer at Red Hat. On the side, I research [complex systems](ht
 - [[what-if-your-ai-agent-could-actually-learn|What If Your AI Agent Could Actually Learn?]] — On giving local agents memory, identity, and the ability to forget.
 - [[why-file-based-memory-works|Why File-Based Memory Works]] — The ideas behind giving AI agents memory are showing up everywhere. Here's why they work and where they come from.
 - [[when-ai-agents-interact|When AI Agents Interact, Nobody Controls What Happens Next]] — Four studies show that multi-agent AI systems produce the same patterns as teams, markets, and ant colonies.
+- [[outside-in-development|Outside-In Development: Spec → BDD → TDD for AI Coding Agents]] — Without structure, AI coding agents build the wrong thing, skip testing, and never know when to stop. A methodology that fixes this at the source.
 
 ## Themes
 
-Explore by topic: [[tags/ai-agents|AI agents]], [[tags/memory|memory]], [[tags/complex-systems|complex systems]], [[tags/multi-agent-systems|multi-agent systems]], [[tags/learning|learning]], [[tags/harness|harness]], [[tags/emergence|emergence]].
+Explore by topic: [[tags/ai-agents|AI agents]], [[tags/memory|memory]], [[tags/complex-systems|complex systems]], [[tags/multi-agent-systems|multi-agent systems]], [[tags/learning|learning]], [[tags/harness|harness]], [[tags/emergence|emergence]], [[tags/methodology|methodology]].
 
 ## About this site
 
