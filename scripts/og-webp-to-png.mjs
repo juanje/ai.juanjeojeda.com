@@ -19,15 +19,29 @@ for (const webp of webpFiles) {
   console.log(`  ${webp} → ${png}`)
 }
 
+const AUTHOR = "Juanje Ojeda"
+
 const htmlFiles = files.filter((f) => f.endsWith(".html"))
 for (const html of htmlFiles) {
-  const path = join(publicDir, html)
-  let content = await readFile(path, "utf-8")
-  const updated = content.replaceAll("-og-image.webp", "-og-image.png").replaceAll("image/webp", "image/png")
-  if (updated !== content) {
-    await writeFile(path, updated)
-    console.log(`  Updated meta tags in ${html}`)
+  const filePath = join(publicDir, html)
+  let content = await readFile(filePath, "utf-8")
+
+  content = content.replaceAll("-og-image.webp", "-og-image.png").replaceAll("image/webp", "image/png")
+
+  const isIndex = html === "index.html"
+  if (!isIndex) {
+    content = content.replace(
+      '<meta property="og:type" content="website"/>',
+      '<meta property="og:type" content="article"/>',
+    )
+    content = content.replace(
+      '<meta name="description"',
+      `<meta property="article:author" content="${AUTHOR}"/><meta name="author" content="${AUTHOR}"/><meta name="description"`,
+    )
   }
+
+  await writeFile(filePath, content)
+  console.log(`  Patched ${html}${isIndex ? "" : " (article + author)"}`)
 }
 
-console.log(`Converted ${webpFiles.length} OG images from WebP to PNG.`)
+console.log(`Done. Converted ${webpFiles.length} OG images, patched ${htmlFiles.length} HTML files.`)
