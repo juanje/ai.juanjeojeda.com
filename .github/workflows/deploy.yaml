@@ -44,6 +44,9 @@ jobs:
       - name: Build
         run: npx quartz build
 
+      - name: Convert OG images to PNG (LinkedIn compatibility)
+        run: node scripts/og-webp-to-png.mjs
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
