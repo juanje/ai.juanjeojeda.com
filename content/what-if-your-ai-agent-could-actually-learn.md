@@ -1,6 +1,6 @@
 ---
 title: What If Your AI Agent Could Actually Learn?
-description: On giving local agents memory, identity, and the ability to forget.
+description: "Most AI agents start every session from scratch. What if yours could remember past decisions, build on previous work, and forget what's no longer relevant?"
 date: 2026-04-10
 tags:
   - ai-agents
