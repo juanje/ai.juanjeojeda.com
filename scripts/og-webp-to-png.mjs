@@ -28,6 +28,25 @@ for (const html of htmlFiles) {
 
   content = content.replaceAll("-og-image.webp", "-og-image.png").replaceAll("image/webp", "image/png")
 
+  const ogImageMatch = content.match(/<meta property="og:image" content="([^"]+)"/)
+  if (ogImageMatch) {
+    const ogUrl = ogImageMatch[1]
+    const hasWidth = content.includes('og:image:width')
+    if (!hasWidth) {
+      const localPath = ogUrl.replace(/^https?:\/\/[^/]+\//, "")
+      try {
+        const imgPath = join(publicDir, localPath)
+        const meta = await sharp(imgPath).metadata()
+        const dimTags = `<meta property="og:image:width" content="${meta.width}"/><meta property="og:image:height" content="${meta.height}"/>`
+        content = content.replace(
+          '<meta property="og:image:type"',
+          `${dimTags}<meta property="og:image:type"`,
+        )
+        console.log(`    Added dimensions ${meta.width}x${meta.height} for ${localPath}`)
+      } catch {}
+    }
+  }
+
   const isIndex = html === "index.html"
   if (!isIndex) {
     content = content.replace(
