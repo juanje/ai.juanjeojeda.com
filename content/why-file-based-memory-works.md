@@ -10,6 +10,7 @@ tags:
   - convergent-evolution
   - CoALA
   - learning
+socialImage: og-images/why-file-based-memory-works.png
 aliases:
   - why-file-based-memory
 ---

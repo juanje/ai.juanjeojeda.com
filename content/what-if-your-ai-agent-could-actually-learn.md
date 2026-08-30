@@ -9,6 +9,7 @@ tags:
   - progressive-disclosure
   - learning
   - agentic-buddy
+socialImage: og-images/what-if-ai-agents-could-learn.png
 aliases:
   - adding-memory-to-local-agents
 ---
