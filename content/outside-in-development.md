@@ -1,6 +1,6 @@
 ---
 title: "Outside-In Development: Spec → BDD → TDD for AI Coding Agents"
-description: "Without a verifiable contract, AI coding agents build the wrong thing, skip testing, and never know when to stop. Outside-In development fixes all three."
+description: Without a verifiable contract, AI coding agents build the wrong thing, skip testing, over-engineer, and never know when to stop. Outside-In development addresses this.
 date: 2026-08-29
 tags:
   - ai-agents
@@ -13,28 +13,32 @@ aliases:
   - spec-bdd-tdd
 ---
 
-*Without a verifiable contract, AI coding agents build the wrong thing, skip testing, and never know when to stop. Outside-In development fixes all three.*
+**Without a verifiable contract, AI coding agents build the wrong thing, skip testing, over-engineer, and never know when to stop. Outside-In development addresses this.**
 
 ---
 
-AI coding agents generate code fast — until you look at what they actually built. Without structure, they consistently fail in four ways:
+AI coding agents generate code fast — until you look at what they actually built. In my experience, without structure, they tend to fail in four predictable ways:
 
 - **They build the wrong thing.** The agent interprets a vague prompt, produces something that looks right but isn't what was needed. You discover this after reviewing hundreds of lines of generated code.
 - **They don't verify their work.** Code is generated but never meaningfully tested. "Looks correct" replaces "is correct."
 - **They over-engineer.** The agent adds abstractions, patterns, and features nobody asked for. A simple CLI becomes a plugin architecture with dependency injection.
 - **They don't know when to stop.** No clear completion criterion. The agent either stops too early (missing edge cases) or keeps iterating endlessly (polishing code that already works).
 
-These aren't occasional glitches — they're the default behavior. And they share a root cause: the agent has no verifiable contract defining what "done" looks like.
+These aren't occasional glitches. They share a root cause: the agent has no verifiable contract defining what "done" looks like.
 
-Outside-In development fixes this. It combines **BDD** (Behavior-Driven Development) and **TDD** (Test-Driven Development) into a two-loop cycle where the agent always knows what to build, how to verify it, and when it's finished.
+I arrived at this structure after repeatedly finding that an agent could produce plausible code while leaving me unable to tell whether the feature was actually complete.
+
+Outside-In development addresses this. It combines **BDD** (Behavior-Driven Development) and **TDD** (Test-Driven Development) into a two-loop cycle where the agent always knows what to build, how to verify it, and when it's finished.
 
 ## How it works
 
-Two phases: **Design** (once, upfront) and **Implementation** (repeating cycle per feature).
+Two phases:
+1. **Design** (once, upfront)
+2. **Implementation** (repeating cycle per feature).
 
 ### Phase 1: Design
 
-Before any code is written, you produce the project's knowledge base — the artifacts the agent reads to understand the problem. Three documents:
+**This is the phase where human judgment matters most**. You research the problem, brainstorm the approach, and produce the project's knowledge base. These are the artifacts the agent reads to understand what to build. The quality of these artifacts determines whether the agent builds the right thing — get them wrong, and the rest of the methodology enforces the wrong spec with precision. Three documents:
 
 **SPEC.md** — What and why. A catalog of functional requirements (FRs) and non-functional requirements (NFRs), each with a unique ID. Every FR has a short title and a description of what it does and why it matters. Crucially, **no acceptance criteria** — those live exclusively in `.feature` files. The spec defines intent; Gherkin defines verifiable behavior.
 
@@ -188,7 +192,7 @@ def step_check_code_length(context, min, max):
     assert min <= len(code) <= max, f"Code '{code}' length not in [{min}, {max}]"
 ```
 
-Run `behave` → **RED**. The server doesn't exist yet, so the step definitions execute and the assertions fail. This is Red — not "undefined," not "pending." (See the principle below on why the distinction matters.)
+Run `behave` → **RED**. The server doesn't exist yet, so the step definitions execute and the scenario fails with a connection error. This is Red — not "undefined," not "pending." The scenario is executable and fails against an interface that doesn't exist yet. (See the principle below on why the distinction matters.)
 
 **Steps 3–6: TDD inner loop.** Now build the implementation test-first:
 
@@ -229,13 +233,15 @@ All pass → commit. Any fail → fix before moving on.
 
 **Both loops are test-first.** The outer loop (BDD) follows the same Red → Green discipline as the inner loop (TDD). Writing a `.feature` file without executable step definitions is not BDD — it's a wish list.
 
-**"Undefined step" is not Red.** A BDD scenario where step definitions don't exist yet — or exist as empty stubs marked "pending" — is not in a Red state. Red means the step definitions execute and the assertions fail against an interface that doesn't exist or doesn't behave correctly yet. If the runner reports "undefined" or "pending" instead of a failure, you haven't started the outer loop — you're still in setup.
+**"Undefined step" is not Red.** In Outside-In, a scenario where step definitions don't exist yet — or exist as empty stubs marked "pending" — is not in a Red state. Red means the step definitions execute and the scenario fails against an interface that doesn't exist or doesn't behave correctly yet. If the runner reports "undefined" or "pending" instead of a failure, you haven't started the outer loop — you're still in setup.
 
 **BDD and TDD are different layers.** BDD validates acceptance: does the system behave as specified? TDD validates logic: does this unit do its job? They use different runners (`behave`/`cucumber` vs `pytest`/`jest`), test at different granularity, and serve different purposes. They are not interchangeable.
 
 **The quality gate is the definition of done.** A feature is not complete when the agent thinks it works — it's complete when every deterministic check passes. All checks produce binary PASS/FAIL output. This removes interpretation from the "am I done?" question.
 
-**Gherkin is the acceptance format.** The methodology requires `.feature` files with Given/When/Then scenarios. Gherkin is structured, parseable, tagged, and supported across every major language. The specific runner is a project choice; the format is not.
+**Gherkin is Outside-In's acceptance format.** This methodology requires `.feature` files with Given/When/Then scenarios because Gherkin is structured, parseable, taggable, and supported across major languages. Other BDD practices can use different formats; Outside-In standardizes on Gherkin so that acceptance behavior remains explicit and traceable. The specific runner is still a project choice.
+
+**Not every NFR fits in a scenario.** Some non-functional requirements translate directly into Given/When/Then scenarios: idempotency, input validation, error formats. Others — latency targets, throughput, security hardening — don't. Those belong in the quality gate as dedicated checks (a benchmark script, a security scan, a load test) rather than forced into Gherkin. The methodology requires that every FR has acceptance scenarios; it does not require that every NFR does.
 
 **One feature at a time.** Finish the current feature before starting the next. This prevents half-implemented features and keeps the test suite consistently green.
 
@@ -254,7 +260,7 @@ Four artifacts linked by FR-IDs:
 | Test suite | How it works internally | Unit tests driven by scenarios |
 | progress.json | Where you are in the cycle | FR-IDs as feature identifiers |
 
-Every line of code traces back to a scenario. Every scenario traces back to an FR. If code exists without a corresponding scenario, it shouldn't be there. If a scenario exists without a corresponding FR, the spec is incomplete.
+Every piece of product behavior should trace back to a scenario. Every scenario traces back to an FR. If product behavior exists without a corresponding scenario, it shouldn't be there. If a scenario exists without a corresponding FR, the spec is incomplete.
 
 ### Why track progress explicitly?
 
@@ -287,7 +293,7 @@ A minimal example:
 }
 ```
 
-The format matters: **JSON, not Markdown.** In practice, Markdown progress files degrade within a few agent sessions — the agent adds context, clarifications, and status commentary until the file is no longer a reliable state record. JSON is structurally rigid: the agent can update a field, but it can't "add context" without breaking the schema.
+The format matters: **schema-validated JSON, not Markdown.** In practice, Markdown progress files degrade within a few agent sessions — the agent adds context, clarifications, and status commentary until the file is no longer a reliable state record. A schema-validated JSON file constrains that drift: the agent can update known state fields, but adding narrative context requires an explicit schema change.
 
 ## Making agents follow the methodology
 
@@ -313,7 +319,7 @@ What makes this work:
 
 The combination of clear instructions, a procedural methodology, and deterministic quality checks creates a self-correcting loop. The agent can still make mistakes, but it can't silently ship them.
 
-### The payoff
+## The payoff
 
 - You always know what's been built, whether it works, and what's left.
 - The agent always knows what to do next and when to stop.
