@@ -28,7 +28,7 @@ These aren't occasional glitches. They share a root cause: the agent has no veri
 
 I arrived at this structure after repeatedly finding that an agent could produce plausible code while leaving me unable to tell whether the feature was actually complete.
 
-Outside-In development addresses this. It combines **BDD** (Behavior-Driven Development) and **TDD** (Test-Driven Development) into a two-loop cycle where the agent always knows what to build, how to verify it, and when it's finished.
+Outside-In development addresses this. It combines [[bdd|BDD]] (Behavior-Driven Development: executable acceptance scenarios that describe what the system must do from the user's perspective) and [[tdd|TDD]] (Test-Driven Development: small Red → Green → Refactor cycles that build the logic behind that behavior) into a two-loop cycle where the agent always knows what to build, how to verify it, and when it's finished.
 
 ## How it works
 
